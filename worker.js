@@ -1,6 +1,6 @@
-// VERSION: 2.2.0
+// VERSION: 3.0.1
 //  面板核心配置区 (放在最顶端方便修改)
-const CURRENT_VERSION = "2.2.0"; 
+const CURRENT_VERSION = "3.0.1"; 
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/MakkaPakka518/Update-EmbyProxy/refs/heads/main/single/worker.js";
 
 // ==========================================
