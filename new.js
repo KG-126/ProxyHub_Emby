@@ -1,10 +1,10 @@
-// VERSION: 2.2.0
+// VERSION: 3.0.2
 //  面板核心配置区 (放在最顶端方便修改)
-const CURRENT_VERSION = "2.2.0"; 
+const CURRENT_VERSION = "3.0.2"; 
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/MakkaPakka518/Update-EmbyProxy/refs/heads/main/single/worker.js";
 
 // ==========================================
-// 1. 网页界面-单播报版本
+// 1. 网页界面
 // ==========================================
 
 const SVG_EYE = `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
