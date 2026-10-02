@@ -56,7 +56,7 @@
 | `CF_ZONE_ID` | 选填 | 你域名的 Zone ID |
 | `CF_DOMAIN` | 选填 | 你的反代域名 |
 
-### API Token 权限配置（按此创建，三个区域与截图一致）
+### API Token 权限配置（按此创建，三个区域与我一致）
 
 **1. 权限（Permissions）**
 
