@@ -10,7 +10,7 @@
 
 - **频道**：t.me/MakkaPakkaOvO
 - **群组**：t.me/MakkaPakkaGroupO_O
-- 进群礼貌提问即可。本来想录制视频的，发现录制出来需要反复暂停观看，影响体验，不如还是文字教程尽量详细点，如有问题可以群里 @我 修改。
+- 不懂得进群提问即可。本来想录制视频的，发现录制出来需要反复
 - **不允许反代的服务器就不要反代了**，影响他人体验。
 
 ---
@@ -24,7 +24,7 @@
    [立即注册 - DNSHE](https://my.dnshe.com/register.php)（推荐这个免费域名即可，也可以用自己的域名）
 
 3. **明文源码**
-   本仓库的 `worker.js` 就是明文源码，直接下载使用。
+   来TG群找
 
 ---
 
@@ -52,11 +52,29 @@
 | 变量名 | 必填 | 说明 |
 |---|---|---|
 | `ADMIN_TOKEN` | ✅ 必填 | 管理员登录密码（最高权限，永远有效） |
-| `CF_API_TOKEN` | 选填 | CF API Token（流量统计 / DNS 管理 / 区域调度用），权限：`Zone: Read`、`Zone Settings: Edit`、`DNS: Edit`、`Analytics: Read` |
+| `CF_API_TOKEN` | 选填 | CF API Token（流量统计 / DNS 管理 / 区域调度用），按下面「API Token 权限配置」创建 |
 | `CF_ZONE_ID` | 选填 | 你域名的 Zone ID |
 | `CF_DOMAIN` | 选填 | 你的反代域名 |
 
-> 不配 `CF_API_TOKEN` 那些，流量统计、DNS、区域调度用不了，但**节点反代、登录、订阅者模式照常能用**。
+### API Token 权限配置（按此创建，三个区域与截图一致）
+
+**1. 权限（Permissions）**
+
+| 权限类型 | 资源 | 权限 |
+|---|---|---|
+| 账户 Account | Workers 脚本 Worker Scripts | 编辑 Edit |
+| 区域 Zone | 区域设置 Zone Settings | 读取 Read |
+| 区域 Zone | 清除缓存 Cache Purge | 清除 Purge |
+| 区域 Zone | DNS | 编辑 Edit |
+| 区域 Zone | Analytics | 读取 Read |
+
+**2. 账户资源（Account Resources）**：选择 **包括 Include** → 勾选你的账号（`你的邮箱@gmail.com`）
+
+**3. 区域资源（Zone Resources）**：选择 **包括 Include** → 特定区域 Specific zone → 勾选你的反代域名区域
+
+**4. 客户端 IP 地址筛选**：默认不设置（留空即可）
+
+> 不配 `CF_API_TOKEN` 那些，流量统计、DNS、区域调度用不了，但**节点反代、登录、订阅者模式照常能用**。。
 
 ### 4. 粘贴代码并部署
 
