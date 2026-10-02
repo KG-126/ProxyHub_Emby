@@ -83,7 +83,7 @@
 3. 把本仓库 [worker.js](worker.js) 的内容**全部复制粘贴**进去
 4. 点右上角 **Deploy**
 
-### 5. 绑定域名（可选，推荐）
+### 5. 绑定域名
 
 Worker → **Settings** → **Domains & Routes** → **Add**，输入你的反代域名（需已接入 CF DNS）。去到Cloudflare 域名概览界面，选择你刚刚添加到worler的域名，点击DNS记录，添加一条CNAME记录，前缀填你刚刚自定义的前缀，关闭小黄云，目标填入：saas.sin.fan
 
