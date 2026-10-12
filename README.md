@@ -170,6 +170,8 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 每天每节点最多一条；一旦有真实观看自动解除
 - 推送渠道：**Bark**（配 `BARK_KEY`）+ **Telegram**（配 `TG_BOT_TOKEN`/`TG_CHAT_ID`），面板内也会弹出提醒 toast
 
+**面板内配置（v3.3.1+）**：网页右上角头像 → **账户设置** → **保号提醒通知（Bark / Telegram）** 区域，可直接填写 Bark Key / 级别、TG Token / Chat ID、启停开关并保存（无需改环境变量，保存在 D1），还有 **测试 Bark / 测试 TG** 按钮立即验证；留空不修改已有配置。环境变量仍优先于面板配置。
+
 ### 更新面板代码
 
 底部导航 → **控制面板** → **手动覆盖/更新**：粘贴最新代码全文或上传 `worker.js` 文件 → 覆盖更新。
