@@ -100,7 +100,7 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 
 ## 安卓 App（保号提醒）
 
-面板配套安卓原生 App（`release/EmbyProxyApp_cf-normal_v1.0.0.apk`），**CF 普通版专用**：
+面板配套安卓原生 App（`release/EmbyProxyApp_cf-normal_v1.0.1.apk`），**CF 普通版专用**：
 
 - 独立原生深色 UI（非网页壳），输入面板地址 + 管理员密钥（`ADMIN_TOKEN`）即可连接
 - 节点卡片实时展示**未观看天数 / 观看下限 / 还剩几天**，超限红色告警、即将超限黄色预警
@@ -172,6 +172,8 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 
 **面板内配置（v3.3.1+）**：网页右上角头像 → **账户设置** → **保号提醒通知（Bark / Telegram）** 区域，可直接填写 Bark Key / 级别、TG Token / Chat ID、启停开关并保存（无需改环境变量，保存在 D1），还有 **测试 Bark / 测试 TG** 按钮立即验证；留空不修改已有配置。环境变量仍优先于面板配置。
 
+
+> 💡 **保号提醒 App v1.0.1**：设置页已升级为真实通知配置表单——直接填写 Bark Key/级别、TG Token/Chat ID 并保存（走 `/api/config`），支持「测试 Bark / 测试 TG」按钮即时验证；无需再依赖环境变量。
 ### 更新面板代码
 
 底部导航 → **控制面板** → **手动覆盖/更新**：粘贴最新代码全文或上传 `worker.js` 文件 → 覆盖更新。
