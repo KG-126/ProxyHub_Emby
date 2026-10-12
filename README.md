@@ -55,6 +55,10 @@
 | `CF_API_TOKEN` | 选填 | CF API Token（流量统计 / DNS 管理 / 区域调度用），按下面「API Token 权限配置」创建 |
 | `CF_ZONE_ID` | 选填 | 你域名的 Zone ID |
 | `CF_DOMAIN` | 选填 | 你的反代域名 |
+| `TG_BOT_TOKEN` | 选填 | Telegram Bot Token（保号提醒推送；BotFather 创建机器人获取） |
+| `TG_CHAT_ID` | 选填 | 管理员 Chat ID（保号提醒推送目标；userinfobot 获取） |
+| `BARK_KEY` | 选填 | Bark 设备 Key（iOS 系统级推送保号提醒；App 首页 api.day.app/ 末尾） |
+| `BARK_LEVEL` | 选填 | Bark 推送级别：`active`（默认）/ `timeSensitive` / `critical` / `passive` |
 
 ### API Token 权限配置（按此创建，三个区域与我一致）
 
@@ -146,6 +150,13 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 同一播放会话只计一次有效播放（今日/累计播放次数），同一会话的心跳风暴不会刷次数
 - 节点卡片「最后活跃」显示距上次真实观看的天数（如 `3 天前观看`）；没记录显示「暂无播放记录」
 - 节点编辑弹窗 → **观看下限（天）**（如 `7 / 14 / 21`，`0` = 不限制）：设置后超过该天数未观看，卡片自动红色报警（⚠️ 已超 X 天）
+
+### 保号提醒（提前预警 + 逾期报警）
+
+- 设置了观看下限的节点，**提前 3 天**还没真实观看记录 → 推送**预警**：`⚠️ 节点 名字 已 X 天未观看，还有 Y 天将达到设定的 Z 天观看下限，请注意保号！`
+- 超过下限仍未观看 → 推送**逾期报警**（卡片同步红色标记）
+- 每天每节点最多一条；一旦有真实观看自动解除
+- 推送渠道：**Bark**（配 `BARK_KEY`）+ **Telegram**（配 `TG_BOT_TOKEN`/`TG_CHAT_ID`），面板内也会弹出提醒 toast
 
 ### 更新面板代码
 
