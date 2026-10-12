@@ -169,7 +169,7 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 每天每节点最多一条；一旦有真实观看自动解除
 - 推送渠道：**Bark**（配 `BARK_KEY`）+ **Telegram**（配 `TG_BOT_TOKEN`/`TG_CHAT_ID`），面板内也会弹出提醒 toast
 
-**面板内配置（v3.3.1+）**：网页右上角头像 → **账户设置** → **保号提醒通知（Bark / Telegram）** 区域，可直接填写 Bark Key / 级别、TG Token / Chat ID、启停开关并保存（无需改环境变量，保存在 D1），还有 **测试 Bark / 测试 TG** 按钮立即验证；留空不修改已有配置。环境变量仍优先于面板配置。
+**面板内配置（v3.3.2+）**：网页右上角头像 → **账户设置** → **保号提醒通知（Bark / Telegram）** 区域，可直接填写 Bark Key / 级别、TG Token / Chat ID、启停开关并保存（无需改环境变量，保存在 D1），还有 **测试 Bark / 测试 TG** 按钮立即验证；留空不修改已有配置。环境变量仍优先于面板配置。
 
 
 > 💡 **保号提醒 App v1.0.3**：设置页已升级为真实通知配置表单——直接填写 Bark Key/级别、TG Token/Chat ID 并保存（走 `/api/config`），支持「测试 Bark / 测试 TG」按钮即时验证；无需再依赖环境变量。
