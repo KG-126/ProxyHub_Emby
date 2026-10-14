@@ -1,6 +1,6 @@
-// VERSION: 3.3.23
+// VERSION: 3.3.24
 //  面板核心配置区 (放在最顶端方便修改)
-const CURRENT_VERSION = "3.3.23"; 
+const CURRENT_VERSION = "3.3.24"; 
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/MakkaPakka518/ProxyHub_Emby/refs/heads/main/worker.js";
 const CHANGELOG_URL = "https://raw.githubusercontent.com/MakkaPakka518/ProxyHub_Emby/refs/heads/main/changelog.json";
 
@@ -1611,9 +1611,12 @@ b.com,直连
             const data = await res.json();
             if (data.success) {
                 closeAccountModal();
-                showToast('反代 Token 已' + (enabled ? '开启，链接前缀 /' + key + '/' : '关闭'));
-                await loadPtState();
-                try { load(); } catch (e) { console.error(e); }
+                const tip = enabled
+                    ? '反代 Token 已开启，所有节点直达链接将带上前缀 /' + key + '/，旧链接全部失效，请重新获取并分发新链接。'
+                    : '反代 Token 已关闭，所有节点直达链接已恢复无前缀访问。';
+                alert(tip);
+                // 链接前缀变化影响所有节点直达链接，提醒后整页刷新，避免旧链接残留
+                window.location.reload();
             } else alert('保存失败：' + (data.error || ''));
         }
         function fmtHitTs(ts) {
