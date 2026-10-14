@@ -1,6 +1,6 @@
-// VERSION: 3.3.26
+// VERSION: 3.3.27
 //  面板核心配置区 (放在最顶端方便修改)
-const CURRENT_VERSION = "3.3.26"; 
+const CURRENT_VERSION = "3.3.27"; 
 const GITHUB_RAW_URL = "https://raw.githubusercontent.com/MakkaPakka518/ProxyHub_Emby/refs/heads/main/worker.js";
 const CHANGELOG_URL = "https://raw.githubusercontent.com/MakkaPakka518/ProxyHub_Emby/refs/heads/main/changelog.json";
 
