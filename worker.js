@@ -4869,3 +4869,4 @@ if (request.method !== 'GET' && ROLE !== 'admin') return new Response('Forbidden
         return Response.json({ success: false, error: String((e && e.message) || e) }, { status: 500 });
     }
 }
+};
