@@ -142,7 +142,6 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 只认 `ADMIN_TOKEN` 环境变量密码（不受反代 Token 模式影响）
 - 登录成功后当前 IP **自动加入最高白名单**，任何模式下都放行面板与节点
 - 最高白名单可在设置页与 /entry 就地增删（共享节点的他人 IP 可随时移除）
-- 与伪装版一致：面板登录 **没有 cookie 逃生**——不在名单内的请求一律拦截，只能通过 /entry 恢复
 
 **保留后缀校验**：反代密钥不能使用 `entry` / `api` / `catch` / `speedtest` / `__client_rtt__` / `favicon.ico` 等系统保留路径。
 
@@ -156,13 +155,6 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 未登录无法读取 Token 配置（401）；关闭开关立即恢复无前缀模式。
 
 
-> **v3.4.15 修复**：一键导入弹窗输入框在手机端溢出——flex 子项未设 `min-width:0`，长 placeholder 撑破容器；已修复。
-
-> **v3.4.14 修复**：一键导入按钮点击无效——根因是函数名 `importNode` 与浏览器原生 `document.importNode()` DOM API 重名，onclick 作用域链命中原生方法抛 TypeError；已重命名为 `openImportModal`。
-
-> **v3.4.13 更新**：一键导入弹窗改为 3 个播放器按钮直接跳转（去掉原链接框+复制+打开）。
-
-> **v3.4.12 修复**：v3.4.11 新增节点账号字段时保存接口 VALUES 占位符写多了一个，导致添加/编辑节点报 `D1_ERROR: 14 values for 13 columns`。已修正，如遇保存失败请更新到 v3.4.12。
 
 ## 一键导入播放器（SenPlayer / Rex / Hills）
 
