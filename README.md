@@ -155,6 +155,17 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 来访记录存入 **D1 的 `proxy_hits` 表**（不占用 KV 免费额度），面板内可查看 / 清空；
 - 未登录无法读取 Token 配置（401）；关闭开关立即恢复无前缀模式。
 
+
+## 一键导入播放器（SenPlayer / Rex / Hills）
+
+节点卡片 → **一键导入** 按钮，弹窗内生成三种播放器导入链接，凭据默认取节点账号（编辑节点时填写「节点账号/节点密码」），可在弹窗内临时修改：
+
+- **SenPlayer**：`senplayer://importserver?type=emby&name=名称&address=https://域名/前缀&username=账号&password=密码`
+- **Rex**：`rex://import?type=emby&scheme=https&host=域名/前缀&port=443&username=账号&password=密码&title=名称`
+- **Hills**：`hills://import?type=emby&scheme=https&host=域名/前缀&port=443&username=账号&password=密码`
+
+在播放器「链接导入」粘贴链接，或直接点「打开」唤起。前缀自动拼入地址/主机，直达对应节点。
+
 ## 权限体系（三级）
 
 | 角色 | 登录方式 | 权限 |
