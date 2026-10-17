@@ -156,6 +156,8 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 未登录无法读取 Token 配置（401）；关闭开关立即恢复无前缀模式。
 
 
+> **v3.4.14 修复**：一键导入按钮点击无效——根因是函数名 `importNode` 与浏览器原生 `document.importNode()` DOM API 重名，onclick 作用域链命中原生方法抛 TypeError；已重命名为 `openImportModal`。
+
 > **v3.4.13 更新**：一键导入弹窗改为 3 个播放器按钮直接跳转（去掉原链接框+复制+打开）。
 
 > **v3.4.12 修复**：v3.4.11 新增节点账号字段时保存接口 VALUES 占位符写多了一个，导致添加/编辑节点报 `D1_ERROR: 14 values for 13 columns`。已修正，如遇保存失败请更新到 v3.4.12。

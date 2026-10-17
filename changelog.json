@@ -1,6 +1,16 @@
 {
   "versions": [
     {
+      "version": "3.4.14",
+      "date": "2026-10-17",
+      "title": "修复一键导入按钮点击无效(函数名与浏览器原生 API 重名)",
+      "items": [
+        "根因:按钮 onclick 调用的 importNode 与浏览器原生 document.importNode() 同名,onclick 作用域链(元素→document→window)优先命中原生方法,传入字符串参数导致 TypeError,弹窗代码中断——按钮表现为点了没反应",
+        "修复:函数重命名为 openImportModal,onclick 同步更新,与所有原生 API 冲突解除(已全量扫描页面事件函数,importNode 为唯一冲突项)",
+        "一键导入弹窗维持 3 按钮(SenPlayer/Rex/Hills)直接跳转,账号密码自动填充节点配置"
+      ]
+    },
+    {
       "version": "3.4.13",
       "date": "2026-10-17",
       "title": "一键导入弹窗重构:3 个播放器按钮直接跳转",
