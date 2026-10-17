@@ -156,11 +156,13 @@ Worker → **Settings** → **Domains & Routes** → **Add**，在worker域界�
 - 未登录无法读取 Token 配置（401）；关闭开关立即恢复无前缀模式。
 
 
+> **v3.4.13 更新**：一键导入弹窗改为 3 个播放器按钮直接跳转（去掉原链接框+复制+打开）。
+
 > **v3.4.12 修复**：v3.4.11 新增节点账号字段时保存接口 VALUES 占位符写多了一个，导致添加/编辑节点报 `D1_ERROR: 14 values for 13 columns`。已修正，如遇保存失败请更新到 v3.4.12。
 
 ## 一键导入播放器（SenPlayer / Rex / Hills）
 
-节点卡片 → **一键导入** 按钮，弹窗内生成三种播放器导入链接，凭据默认取节点账号（编辑节点时填写「节点账号/节点密码」），可在弹窗内临时修改：
+节点卡片 → **一键导入** 按钮，弹窗内 3 个按钮（SenPlayer / Rex / Hills），点击即跳转到对应播放器的导入链接，凭据默认取节点账号（编辑节点时填写「节点账号/节点密码」），可在弹窗内临时修改名称/账号/密码：
 
 - **SenPlayer**：`senplayer://importserver?type=emby&name=名称&address=https://域名/前缀&username=账号&password=密码`
 - **Rex**：`rex://import?type=emby&scheme=https&host=域名/前缀&port=443&username=账号&password=密码&title=名称`
