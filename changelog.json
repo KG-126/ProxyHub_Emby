@@ -1,6 +1,15 @@
 {
   "versions": [
     {
+      "version": "3.4.12",
+      "date": "2026-10-17",
+      "title": "修复:添加/编辑节点保存报 D1_ERROR 14 values for 13 columns",
+      "items": [
+        "修复:添加/编辑节点保存失败(D1_ERROR: 14 values for 13 columns)——保存接口 INSERT 语句列清单 13 列但 VALUES 误写 14 个占位符,已修正为 13 个,添加/编辑节点恢复正常",
+        "修复说明:该问题由 v3.4.11 新增 node_user/node_pass 列时 VALUES 占位符未同步精简导致"
+      ]
+    },
+    {
       "version": "3.4.11",
       "date": "2026-10-17",
       "title": "新增 SenPlayer / Rex / Hills 一键导入",
