@@ -1,6 +1,6 @@
-// VERSION: 3.4.47
-// 更新内容:节点列表带宽统计放宽——并发 4→8、单次超时 8s→20s、失败自动重试一次,管理员多等可查全所有节点流量(原 8s 超时导致节点多时后面排队超时显示「获取异常」);订阅用户/子管理员仍不查流量,列表秒出
-const CURRENT_VERSION = "3.4.47"; 
+// VERSION: 3.4.48
+// 更新内容:①订阅用户仍看不到源站链接,但节点搜索支持服务端按源站链接匹配(q 参数,订阅用户可用完整链接/域名搜出节点)②重复节点提示带上名字(「xxx」(/prefix))
+const CURRENT_VERSION = "3.4.48"; 
 
 // ============ PlaybackInfo 起播缓存(内存,单 isolate) ============
 const PLAYBACK_INFO_CACHE_TTL = 300000;   // 5 分钟
@@ -1971,15 +1971,32 @@ function toSvg(s){
             } catch(e) { showToast('❌ 网络请求错误'); } finally { btn.textContent = originalText; btn.disabled = false; }
         }
 
-        function filterNodesList() {
+        let searchTimer = null;
+        async function filterNodesList() {
             const input = document.getElementById('searchNode');
             if (!input) return;
-            const filterText = input.value.toLowerCase();
+            const filterText = input.value.trim().toLowerCase();
             const cards = document.querySelectorAll('.emby-card');
+            if (!filterText) { cards.forEach(card => card.style.display = 'flex'); return; }
+            // 本地先匹配(备注/后缀/管理员本地的线路地址),立即响应
             cards.forEach(card => {
                 const searchStr = String(card.getAttribute('data-search') || '').toLowerCase() + ' ' + String(card.getAttribute('data-search2') || '').toLowerCase();
-                card.style.display = (!filterText || searchStr.includes(filterText)) ? 'flex' : 'none';
+                card.style.display = searchStr.includes(filterText) ? 'flex' : 'none';
             });
+            // 再服务端按源站链接匹配(订阅用户看不到链接也能用链接/域名搜出节点,防抖 300ms)
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(async () => {
+                try {
+                    const res = await fetch('/api/routes?q=' + encodeURIComponent(filterText));
+                    const data = await res.json();
+                    if (!Array.isArray(data)) return;
+                    const hitPrefixes = new Set((data || []).map(r => r.prefix));
+                    cards.forEach(card => {
+                        const p = card.getAttribute('data-prefix');
+                        if (p && hitPrefixes.has(p)) card.style.display = 'flex';
+                    });
+                } catch (e) {}
+            }, 300);
         }
 
         function handleTargetInputs() {
@@ -6448,6 +6465,21 @@ if (request.method === 'POST' && ROLE !== 'admin' && ROLE !== 'subadmin') {
                     ORDER BY r.sort_order ASC, r.prefix ASC
                 `).bind(todayStr).all();
 
+                // —— v3.4.48:搜索参数 q(服务端按源站链接/域名/备注/后缀匹配;订阅用户看不到 target 也能用链接搜出节点,返回仍剥离 target 不泄露)—— 
+                const searchQ = (url.searchParams.get('q') || '').trim().toLowerCase();
+                if (searchQ) {
+                    const qDomain = extractDomain(searchQ);
+                    routes = routes.filter(r => {
+                        const t = String(r.target || '').toLowerCase();
+                        const tDomain = extractDomain(r.target);
+                        if (t && t.includes(searchQ)) return true;
+                        if (qDomain && tDomain && tDomain.includes(qDomain)) return true;
+                        if (String(r.remark || '').toLowerCase().includes(searchQ)) return true;
+                        if (String(r.prefix || '').toLowerCase().includes(searchQ)) return true;
+                        return false;
+                    });
+                }
+
                 // 带宽统计只对管理员查询:非管理员(子管理员/订阅用户)只查节点,直接跳过 CF GraphQL,节点列表秒出
                 if (ROLE === 'admin' && env.CF_API_TOKEN && env.CF_ZONE_ID && routes && routes.length > 0) {
                     const end = new Date();
@@ -6537,10 +6569,10 @@ if (request.method === 'POST' && ROLE !== 'admin' && ROLE !== 'subadmin') {
                 if (!data.oldPrefix && String(data.target || '').trim()) {
                     const tDomains = String(data.target || '').split(',').map(t => extractDomain(t)).filter(Boolean);
                     if (tDomains.length > 0) {
-                        const allRouteRows = (await env.DB.prepare('SELECT prefix, target FROM routes').all()).results || [];
+                        const allRouteRows = (await env.DB.prepare('SELECT prefix, target, remark FROM routes').all()).results || [];
                         for (const td of tDomains) {
                             const hit = allRouteRows.find(r => extractDomain(r.target) === td);
-                            if (hit) return Response.json({ success: false, error: '已存在相同源站链接的节点（/' + hit.prefix + '），请勿重复添加' });
+                            if (hit) return Response.json({ success: false, error: '已存在相同源站链接的节点「' + (hit.remark || hit.prefix) + '」(/' + hit.prefix + ')，请勿重复添加' });
                         }
                     }
                 }
