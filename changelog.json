@@ -1,6 +1,15 @@
 {
   "versions": [
     {
+      "version": "3.4.52",
+      "title": "申请记录/申请列表/成员添加节点记录时间统一北京时间(UTC+8)",
+      "items": [
+        "节点申请待审列表(/api/node-requests)、申请记录近7天(/api/node-requests/audit)、成员添加节点记录(/api/admin-node-logs)三处查询时间统一为北京时间:SELECT 时 datetime(created_at, '+8 hours') 转换,近7天过滤边界同步改为北京时间",
+        "播放记录/播放热力图/大屏统计/访客统计此前已为 UTC+8,保持一致;CF 额度卡片保留 UTC 重置标注(额度按 UTC 重置,不便改)"
+      ],
+      "date": "2026-10-21"
+    },
+    {
       "version": "3.4.51",
       "title": "修复:EMOS 聚合能搜到但播不出(仅 EMOS 模式恢复媒体 30x 跟随取流)",
       "items": [
