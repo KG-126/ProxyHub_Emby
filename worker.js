@@ -1,5 +1,4 @@
 // VERSION: 3.4.65
-// 更新内容:修复公告通知弹窗顶部被截断(下移窗口,顶部 padding 补安全区适配,同节点申请弹窗写法);更新成功弹窗同类下移;dsFadeIn 页面切换动画结束改 transform:none(根治 page-view 内 fixed 元素定位失效)
 const CURRENT_VERSION = "3.4.65"; 
 
 // ============ PlaybackInfo 起播缓存(内存,单 isolate) ============
