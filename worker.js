@@ -1,6 +1,6 @@
-// VERSION: 3.4.66
-// 更新内容:统计判定改播放心跳链(PlaybackInfo 不再计数,消除观看统计虚高;热力图改 stream/POST PlaybackInfo 口径);保号预警观看检查与推送渠道解耦(cron/请求兜底到点必查,不配推送也检查记录);通知文案改为「节点已 N 天没观看请立即观看保号」;判断依据最后一次真实观看时间 last_play
-const CURRENT_VERSION = "3.4.66"; 
+// VERSION: 3.4.67
+// 更新内容:播放热力图 play_hits 清理——此前只增不删,现随 10 分钟清理限频删除 30 天前数据(day 为 UTC+8 日期串),防 D1 无限膨胀
+const CURRENT_VERSION = "3.4.67"; 
 
 // ============ PlaybackInfo 起播缓存(内存,单 isolate) ============
 const PLAYBACK_INFO_CACHE_TTL = 300000;   // 5 分钟
@@ -7255,6 +7255,11 @@ if (request.method === 'POST' && ROLE !== 'admin' && ROLE !== 'subadmin') {
             // 数据防爆清理策略：自动清理过去 7 天的精细日志(限频 10 分钟一次,避免每次请求都触发 D1 写入)
             if (Date.now() - lastLogsCleanAt > 600000) {
                 try { await env.DB.exec(`DELETE FROM visitor_logs WHERE timestamp < datetime('now', '-7 days')`); } catch(e) {}
+                // v3.4.67:播放热力图保留 30 天(day 为 UTC+8 日期串,字符串比较小于 30 天前即删)
+                try {
+                    const cutDay = new Date(Date.now() + 8 * 3600000 - 30 * 86400000).toISOString().split('T')[0];
+                    await env.DB.prepare(`DELETE FROM play_hits WHERE day < ?`).bind(cutDay).run();
+                } catch(e) {}
                 lastLogsCleanAt = Date.now();
             }
 
