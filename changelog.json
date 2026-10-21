@@ -1,6 +1,22 @@
 {
   "versions": [
     {
+      "version": "3.5.0",
+      "date": "2026-10-22",
+      "title": "同步 玛卡巴卡自用版 全面优化修复:热路径 D1 查询归零 + 登录改签名会话 + 一批真 bug 修复与权限收紧",
+      "items": [
+        "性能:反代热路径 D1 查询归零(伪装版同款)——IP 守卫三项(白名单/黑名单/可信IP)/鉴权密码指纹/节点路由配置/代理Token/裸代理开关/Logo 全部内存缓存,写操作后自动失效;检查节流改单条 SQL 原子抢占,消除读后写竞态;路由表 schema 初始化仅首次执行,后续请求不再跑 ALTER TABLE",
+        "真bug:PlaybackInfo 起播缓存整体删除——原缓存的命中检查在拿到上游响应之后才执行,「免回源」从未实现只有副作用,且缓存值带当前用户会话数据(键却剥掉身份参数)会串用户,删除后每次实时改写,不串数据速度不变",
+        "真bug:/api/deploy 不再把环境变量 secret 降级成明文——平台已有 secret_text 名单+变量名 /(TOKEN|SECRET|PASS|KEY)/i 兜底,secret 一律以 secret_text 回写",
+        "真bug:/api/update-dns 先校验(非空数组/≤50 条/合法 IPv4 含 0-255 校验/合法 IPv6/合法域名)再操作,中途失败自动回滚(删已建新记录+恢复已删旧记录),不再先删后建把解析清空",
+        "真bug:登录/逃生接口失败限速(10 分钟窗口 8 次,429,按 IP 独立计数);tg-webhook 只向已配置的聊天发送统计(忽略任意伪造 chat id),配置 TG_WEBHOOK_SECRET 时校验 X-Telegram-Bot-Api-Secret-Token;get-custom-api-ips 收紧为仅管理员+仅 http(s)+禁内网/本机+8 秒超时(防 SSRF)",
+        "真bug:IP 守卫跳转地址校验(无效 URL 不再 500,回退拉黑页);IPv4 映射 IPv6(::ffff: 前缀)归一化,规则匹配不再失效",
+        "安全:登录 cookie 不再存明文密码——新增 /api/login+/api/logout 签名会话(s1.角色.过期.密码指纹.HMAC),HttpOnly+SameSite=Lax+HTTPS 下 Secure,改密/删订阅者后旧会话自动失效;升级后所有已登录浏览器需重新登录一次;密码比较改常数时间(timingSafeEq)",
+        "安全:CSRF 防护——带 Origin 的非 GET 面板请求必须同源否则 403;Logo 值字符白名单,防带引号/尖括号的值逃出 HTML 属性",
+        "权限收紧:get-dns/get-remote-ips/get-custom-api-ips/cfusage/analytics/heatmap 改为仅管理员可调,订阅者/子管理员不再能调用"
+      ]
+    },
+    {
       "version": "3.4.68",
       "date": "2026-10-22",
       "title": "数据防爆补全:proxy_hits 30天/request_stats 90天/admin_node_logs 90天/node_requests 90天已处理自动清理;保号预警修复 watch_limit≤3 刚观看即提醒边界;检查间隔可配置(默认6h);热力图天数上限31",
