@@ -1,6 +1,18 @@
 {
   "versions": [
     {
+      "version": "3.5.2",
+      "date": "2026-10-22",
+      "title": "修复路由表初始化遗漏 + 建表/加列只执行一次",
+      "items": [
+        "真bug:路由表 schema 初始化原有三处入口(管理页、导入、反代请求)共用同一个「已初始化」标记,但每处初始化的内容不一样,反代请求那一块不建 routes 表、也不补 mode/remark/cache_img/watch_limit/edge_cache 等列。空库上第一个请求走反代会直接报 no such table: routes;若反代请求先把标记置 true,管理页那块完整的建表加列会被跳过,缺列的旧库一直缺。现合并为统一的 ensureRoutesSchema():三处共用同一份完整列表,并发请求共享同一次初始化,建表失败不记为完成、下次自动重试;以后新增节点列只需改一处",
+        "性能:recordPlayHit 每次播放都先执行 CREATE TABLE IF NOT EXISTS play_hits(热路径多一次 D1 往返),改为每个 isolate 只建一次",
+        "性能:proxy_hits(3 处)、node_requests 建表+加 ip/ua 列(4 处)、admin_node_logs 建表+加 actor 列(2 处)、visitor_logs 加 region/city 列(2 处)原来每次调用都重复执行 DDL,统一改为每个 isolate 只执行一次",
+        "修复:超限提醒扫描(scanOverdueNotify)原来只补 watch_limit 列,空库上查询报错被静默吞掉,现改为走完整路由表初始化",
+        "说明:3.5.1 的 STRM 优化开关保持不变(开启后 Path 兜底改写不再执行),本版本仅修复初始化与 DDL 重复执行问题,不改变任何功能行为"
+      ]
+    },
+    {
       "version": "3.5.1",
       "date": "2026-10-22",
       "title": "新增 STRM 优化开关",
