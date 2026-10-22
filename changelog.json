@@ -1,6 +1,14 @@
 {
   "versions": [
     {
+      "version": "3.5.1",
+      "date": "2026-10-22",
+      "title": "新增 STRM 优化开关",
+      "items": [
+        "新增strm优化开关：开启后仅当PlaybackInfo里DirectStreamUrl为空、Path有值时，才会把Path改写成反代前缀地址并填进DirectStreamUrl，不再执行兜底改写，Path保持源站原样"
+      ]
+    },
+    {
       "version": "3.5.0",
       "date": "2026-10-22",
       "title": "同步 玛卡巴卡自用版 全面优化修复:热路径 D1 查询归零 + 登录改签名会话 + 一批真 bug 修复与权限收紧",
