@@ -68,7 +68,8 @@
 | `TG_CHAT_ID` | 选填 | 管理员 Chat ID（保号提醒推送目标；userinfobot 获取） |
 | `BARK_KEY` | 选填 | Bark 设备 Key（iOS 系统级推送保号提醒；App 首页 api.day.app/ 末尾） |
 | `BARK_LEVEL` | 选填 | Bark 推送级别：`active`（默认）/ `timeSensitive` / `critical` / `passive` |
-
+| `CF_WORKER_NAME` | 选填 | 你的Worker项目名 |
+| `CF_ACCOUNT_ID` | 选填 | CF Worker页面最底下可以找到 |
 ### API Token 权限配置（按此创建，三个区域与我一致）
 
 **1. 权限（Permissions）**
