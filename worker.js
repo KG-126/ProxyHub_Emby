@@ -1,6 +1,6 @@
-// VERSION: 3.5.0
-// 更新内容:同步玛卡巴卡自用版方法对普通版全面优化修复——①性能:热路径 D1 查询归零(IP守卫/鉴权指纹/节点路由/代改原子抢占,消除读后写;路由表 schema 仅首次 ALTER)②真bug:PlaybackInfo 缓存整体删除(缓存命中在上游响应后才查,免回源从未实现,且缓存值带当前用户会话数据会串用户);/api/deploy 环境变量不再降级明文(secret 保持 secret_text 回写);/api/update-dns 先校验后操作+失败回滚;登录/逃生失败限速(10分钟8次429);tg-webhook 只发已配置聊天+可选 TG_WEBHOOK_SECRET 校验;get-custom-api-ips 限管理员+仅 http(s)+禁内网+8秒超时;IP守卫跳转地址校验+IPv4映射IPv6归一化③安全:登录改签名会话(密码指纹+HMAC 签名 cookie,HttpOnly+SameSite=Lax+HTTPS 下 Secure,改密/删订阅者自动失效;升级后所有已登录浏览器需重新登录一次);timingSafeEq 常数时间比较;跨站非GET请求 Origin 同源校验;Logo 值字符白名单④权限:get-dns/get-remote-ips/get-custom-api-ips/cfusage/analytics/heatmap 收紧为仅管理员可调
-const CURRENT_VERSION = "3.5.0"; 
+// VERSION: 3.5.1
+// 更新内容：增加strm优化开关
+const CURRENT_VERSION = "3.5.1"; 
 
 // ============ isolate 级内存缓存 / 一次性初始化(减少每个请求的 D1 读写) ============
 const memoStore = new Map();
