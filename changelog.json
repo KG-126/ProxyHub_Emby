@@ -1,7 +1,23 @@
 {
   "versions": [
     {
-      "version": "4.0.0（beta）",
+      "version": "4.0.2(beta)",
+      "date": "2026-10-24",
+      "title": "调整反代逻辑",
+      "items": [
+        "调整反代逻辑，兼容性提高"
+      ]
+    },
+    {
+      "version": "4.0.1(beta)",
+      "date": "2026-10-24",
+      "title": "继续优化性能",
+      "items": [
+        "大量性能优化，减少CF CPU占用"
+      ]
+    },
+    {
+      "version": "4.0.0(beta)",
       "date": "2026-10-24",
       "title": "开始优化性能",
       "items": [
